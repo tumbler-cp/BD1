@@ -19,7 +19,10 @@ CREATE TABLE planets (
 
 CREATE TABLE ships (
     id SERIAL PRIMARY KEY,
-    name TEXT
+    name TEXT,
+    action TEXT DEFAULT '-',
+    action_duration INT DEFAULT 0,
+    action_duration_unit duration_unit DEFAULT 'мин.'
 );
 
 
@@ -77,12 +80,17 @@ CREATE TABLE institutions (
 CREATE TABLE semesters (
     year_of_study_id INT NOT NULL REFERENCES years_of_studying(id),
     institution_id INT NOT NULL REFERENCES institutions(id),
-    semester_id PRIMARY KEY (year_of_study_id, institution_id)
+    CONSTRAINT semester_id PRIMARY KEY (year_of_study_id, institution_id)
 );
 
 
 
-INSERT INTO ships(name) VALUES ('Корабль'), ('Анон 1'), ('Анон 2');
+INSERT INTO ships(name, action, action_duration, action_duration_unit) VALUES 
+('Корабль', 'находится в полете', 30, 'день');
+
+INSERT INTO ships(name) VALUES
+('Анон 1'),
+('Анон 2');
 
 INSERT INTO planets(name) VALUES ('Луна'), ('Марс'), ('Земля'), ('Неизвестно');
 
